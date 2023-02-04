@@ -1,3 +1,4 @@
+//3:03
 async function getUserCode(url, apiKey) {
   const response = await fetch(url, {
     method: 'GET',

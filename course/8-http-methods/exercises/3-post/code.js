@@ -1,18 +1,28 @@
 async function createUser(apiKey, url, data) {
-  // ?
+  const res = await fetch(url, {
+    method: 'POST',
+    mode: 'cors',
+    headers: {
+      'X-API-Key': apiKey,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+
+  return await res.json()
 }
 
 // Test Suite Don't Touch Below This Line
 
 const userToCreate = {
-  characterName: 'Grendel',
+  characterName: 'Gabriel',
   class: 'Warrior',
   level: 1,
   pvpEnabled: false,
   user: {
-    name: 'Allan',
-    location: 'USA',
-    age: 27
+    name: 'Gabe',
+    location: 'BRA',
+    age: 22
   }
 }
 
@@ -45,19 +55,21 @@ function logUsers(users) {
   }
 }
 
-console.log('Retrieving user data...')
-const userDataFirst = await getUsers(url, generatedKey)
-logUsers(userDataFirst)
-console.log('---')
-
-console.log('Creating new character...')
-const creationResponse = await createUser(generatedKey, url, userToCreate)
-console.log(`Creation response body: ${JSON.stringify(creationResponse)}`)
-console.log('---')
-
-
-console.log('Retrieving user data...')
-const userDataSecond = await getUsers(url, generatedKey)
-logUsers(userDataSecond)
-console.log('---')
-
+async function run() {
+  console.log('Retrieving user data...')
+  const userDataFirst = await getUsers(url, generatedKey)
+  logUsers(userDataFirst)
+  console.log('---')
+  
+  console.log('Creating new character...')
+  const creationResponse = await createUser(generatedKey, url, userToCreate)
+  console.log(`Creation response body: ${JSON.stringify(creationResponse)}`)
+  console.log('---')
+  
+  
+  console.log('Retrieving user data...')
+  const userDataSecond = await getUsers(url, generatedKey)
+  logUsers(userDataSecond)
+  console.log('---')
+}  
+run()

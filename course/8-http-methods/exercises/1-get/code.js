@@ -1,13 +1,21 @@
 async function getUsers(url, apiKey) {
-  // ?
+  const res = await fetch(url, {
+    method: 'GET',
+    mode: 'cors',
+    headers: {
+      'X-API-KEY': apiKey
+    }
+  })
+
+  return await res.json()
 }
 
-// Don't touch below this line
+// Don't touch below this line //actually I did it because in normal Node await without async is not allowed 
 
 const generatedKey = generateKey()
 const url = 'https://api.boot.dev/v1/courses_rest_api/learn-http/users'
-const users = await getUsers(url, generatedKey)
-logUsers(users)
+
+logUsers(getUsers(url, generatedKey))
 
 function generateKey() {
   const characters = 'ABCDEF0123456789'
@@ -18,7 +26,8 @@ function generateKey() {
   return result
 }
 
-function logUsers(users) {
+async function logUsers(users) {
+  users = await users;
   for (const user of users) {
     console.log(`Character name: ${user.characterName}, Class: ${user.class}, Level: ${user.level}, User: ${user.user.name}`)
   }

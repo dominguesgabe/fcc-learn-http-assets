@@ -1,7 +1,7 @@
 {
   "question": "The purpose of status codes is to ____",
   "answers": [
-    "Inform the client about whether or not the request was successful",
+    "Inform the client about whether or not the request was successful#",
     "Alter the method of the request",
     "Not need to send a response body",
     "Speed up the request"
