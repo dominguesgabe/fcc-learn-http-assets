@@ -1,5 +1,9 @@
 function parseLocation(locationString) {
-  // ?
+	try {
+		printLocationObj(JSON.parse(locationString))
+	} catch {
+		console.log('Failed to parse the JSON, check the syntax and try again.')
+	}
 }
 
 // don't touch below this line

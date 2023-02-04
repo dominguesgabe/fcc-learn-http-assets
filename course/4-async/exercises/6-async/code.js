@@ -1,13 +1,16 @@
-function getItemData() {
+async function getItemData() {
   const response = await fetch('https://api.boot.dev/v1/courses_rest_api/learn-http/items', getSettings())
   return response.json()
 }
 
 // don't touch below this line
+let items;
 
-const items = await getItemData()
-
-logItems(items)
+async function run() {
+  const items = await getItemData()
+  logItems(items)
+}
+run()
 
 function getSettings() {
   return {

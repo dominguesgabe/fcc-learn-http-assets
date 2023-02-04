@@ -4,7 +4,7 @@ async function updateLocationById(id, locationObj) {
     method: 'PUT',
     mode: 'cors',
     headers: getHeaders(),
-    body: locationObj
+    body: JSON.stringify(locationObj)
   })
   return response.json()
 }
@@ -14,16 +14,18 @@ async function updateLocationById(id, locationObj) {
 const apiKey = generateKey()
 const locationID = '0194fdc2-fa2f-4cc0-81d3-ff12045b73c8'
 
-const location = await getLocationById(locationID)
-console.log(`Location '${location.name}' fetched. Data: ${JSON.stringify(location)}`)
-
-location.discovered = true
-await updateLocationById(locationID, location)
-console.log(`Location '${location.name}' was discovered!`)
-
-const updatedLocation = await getLocationById(locationID)
-console.log(`Location '${updatedLocation.name}' fetched. Data: ${JSON.stringify(updatedLocation)}`)
-
+async function run() {
+  const location = await getLocationById(locationID)
+  console.log(`Location '${location.name}' fetched. Data: ${JSON.stringify(location)}`)
+  
+  location.discovered = true
+  await updateLocationById(locationID, location)
+  console.log(`Location '${location.name}' was discovered!`)
+  
+  const updatedLocation = await getLocationById(locationID)
+  console.log(`Location '${updatedLocation.name}' fetched. Data: ${JSON.stringify(updatedLocation)}`)
+  
+}
 function generateKey() {
   const characters = 'ABCDEF0123456789'
   let result = ''
@@ -52,3 +54,5 @@ function getHeaders() {
     'Content-Type': 'application/json'
   }
 }
+
+run()

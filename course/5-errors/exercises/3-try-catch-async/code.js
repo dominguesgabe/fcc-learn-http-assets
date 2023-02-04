@@ -1,5 +1,12 @@
-const leaderboard = await fetchLeaderBoard()
-console.log(leaderboard)
+async function run() {
+  try {
+    const leaderboard = await fetchLeaderBoard()
+    console.log(leaderboard)
+  } catch {
+    console.log('Our servers are down, but we will be up and running soon')
+  }
+}
+run()
 
 // don't touch below this line
 

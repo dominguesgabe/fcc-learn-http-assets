@@ -8,17 +8,20 @@ async function getLocations() {
       'Content-Type': 'application/json'
     }
   })
-  // ?
+  
+  return await response.json()
 }
 
 // Don't touch below this line
 
 const apiKey = generateKey()
 
-const locations = await getLocations()
-console.log('Got some locations from the server.')
-for (const location of locations) {
-  console.log(`- name: ${location.name}, recommendedLevel: ${location.recommendedLevel}`)
+async function run() {
+  const locations = await getLocations()
+  console.log('Got some locations from the server.')
+  for (const location of locations) {
+    console.log(`- name: ${location.name}, recommendedLevel: ${location.recommendedLevel}`)
+  }
 }
 
 function generateKey() {
@@ -29,3 +32,4 @@ function generateKey() {
   }
   return result
 }
+run()
