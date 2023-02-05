@@ -1,4 +1,4 @@
-const url = 'http://api.boot.dev/v1/courses_rest_api/learn-http/users'
+const url = 'https://api.boot.dev/v1/courses_rest_api/learn-http/users'
 
 async function getUserById(url, id) {
   const path = `${url}/${id}`
@@ -31,5 +31,8 @@ function logUser(user) {
   console.log(`User uuid: ${user.id}, Character Name: ${user.characterName}, Class: ${user.class}, Level: ${user.level}, PVP Status: ${user.pvpEnabled}, User name: ${user.user.name}`)
 }
 
-const user = await getUserById(url, uuid)
-logUser(user)
+async function run() {
+  const user = await getUserById(url, uuid)
+  logUser(user)
+}
+run()

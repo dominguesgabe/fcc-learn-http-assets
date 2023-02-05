@@ -1,6 +1,15 @@
 async function deleteUser(baseURL, id, apiKey) {
   const fullURL = `${baseURL}/${id}`
-  // ?
+  
+  const res = await fetch(fullURL, {
+    method: 'DELETE',
+    mode: 'cors',
+    headers: {
+      'X-API-KEY': apiKey
+    }
+  })
+
+  return res.status
 }
 
 // don't touch below this line
@@ -36,14 +45,17 @@ function logUsers(users) {
   }
 }
 
-const users = await getUsers(url, generatedKey)
-logUsers(users)
-console.log('---')
-
-await deleteUser(url, userId, generatedKey)
-console.log(`Deleted user with id: ${userId}`)
-console.log('---')
-
-const newUsers = await getUsers(url, generatedKey)
-logUsers(newUsers)
-console.log('---')
+async function run() {
+  const users = await getUsers(url, generatedKey)
+  logUsers(users)
+  console.log('---')
+  
+  await deleteUser(url, userId, generatedKey)
+  console.log(`Deleted user with id: ${userId}`)
+  console.log('---')
+  
+  const newUsers = await getUsers(url, generatedKey)
+  logUsers(newUsers)
+  console.log('---')
+}
+run()

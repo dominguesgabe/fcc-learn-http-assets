@@ -1,5 +1,5 @@
 async function getUsers(url, apiKey) {
-  const fullURL = `${url}`
+  const fullURL = `${url}?sort=level`
   const response = await fetch(fullURL, {
     method: 'GET',
     mode: 'cors',
@@ -16,10 +16,13 @@ const baseURL = 'https://api.boot.dev/v1/courses_rest_api/learn-http/users'
 
 const apiKey = generateKey()
 
-const users = await getUsers(baseURL, apiKey)
-for (const user of users) {
-  console.log(`got user with name: ${user.characterName}, and level: ${user.level}`)
+async function run() {
+  const users = await getUsers(baseURL, apiKey)
+  for (const user of users) {
+    console.log(`got user with name: ${user.characterName}, and level: ${user.level}`)
+  }
 }
+run()
 
 function generateKey() {
   const characters = 'ABCDEF0123456789'

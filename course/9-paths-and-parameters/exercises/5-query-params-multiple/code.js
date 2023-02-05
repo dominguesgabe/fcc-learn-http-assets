@@ -1,6 +1,15 @@
 async function lootTreasure(baseURL, rarity) {
+  let treasure
 
-  const fullURL = `${baseURL}`
+  if (rarity == "Common") {
+    treasure = 1
+  } else if (rarity == "Rare") {
+    treasure = 3
+  } else if (rarity == "Legendary") {
+    treasure = 5
+  }
+
+  const fullURL = `${baseURL}?limit=${treasure}&sort=quality`
   return await getItems(fullURL, apiKey)
 }
 
@@ -9,25 +18,28 @@ async function lootTreasure(baseURL, rarity) {
 const url = 'https://api.boot.dev/v1/courses_rest_api/learn-http/items'
 const apiKey = generateKey()
 
-const commonLoot = await lootTreasure(url, "Common")
-console.log("Looting common treasure chest...")
-for (const item of commonLoot) {
-  console.log(`Acquired a ${item.name} with quality score: ${item.quality}`)
+async function run() {
+  const commonLoot = await lootTreasure(url, "Common")
+  console.log("Looting common treasure chest...")
+  for (const item of commonLoot) {
+    console.log(`Acquired a ${item.name} with quality score: ${item.quality}`)
+  }
+  console.log("---")
+  
+  const rareLoot = await lootTreasure(url, "Rare")
+  console.log("Looting rare treasure chest...")
+  for (const item of rareLoot) {
+    console.log(`Acquired a ${item.name} with quality score: ${item.quality}`)
+  }
+  console.log("---")
+  
+  console.log("Looting legendary treasure chest...")
+  const legendaryLoot = await lootTreasure(url, "Legendary")
+  for (const item of legendaryLoot) {
+    console.log(`Acquired a ${item.name} with quality score: ${item.quality}`)
+  }
 }
-console.log("---")
-
-const rareLoot = await lootTreasure(url, "Rare")
-console.log("Looting rare treasure chest...")
-for (const item of rareLoot) {
-  console.log(`Acquired a ${item.name} with quality score: ${item.quality}`)
-}
-console.log("---")
-
-console.log("Looting legendary treasure chest...")
-const legendaryLoot = await lootTreasure(url, "Legendary")
-for (const item of legendaryLoot) {
-  console.log(`Acquired a ${item.name} with quality score: ${item.quality}`)
-}
+run()
 
 async function getItems(url, apiKey) {
   const response = await fetch(url, {

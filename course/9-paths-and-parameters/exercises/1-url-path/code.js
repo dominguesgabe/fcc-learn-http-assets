@@ -1,5 +1,5 @@
 async function getResources(path) {
-  const fullURL = `https://api.boot.dev`
+  const fullURL = `https://api.boot.dev` + path
 
   const response = await fetch(fullURL, {
     method: 'GET',
@@ -15,19 +15,22 @@ async function getResources(path) {
 
 // don't touch below this line
 
-const locations = await getResources('/v1/courses_rest_api/learn-http/locations')
-console.log('Locations:')
-logResources(locations)
-console.log(' --- ')
-
-const items = await getResources('/v1/courses_rest_api/learn-http/items')
-console.log('Items:')
-logResources(items)
-console.log(' --- ')
-
-const users = await getResources('/v1/courses_rest_api/learn-http/users')
-console.log('Users:')
-logResources(users)
+async function run() {
+  const locations = await getResources('/v1/courses_rest_api/learn-http/locations')
+  console.log('Locations:')
+  logResources(locations)
+  console.log(' --- ')
+  
+  const items = await getResources('/v1/courses_rest_api/learn-http/items')
+  console.log('Items:')
+  logResources(items)
+  console.log(' --- ')
+  
+  const users = await getResources('/v1/courses_rest_api/learn-http/users')
+  console.log('Users:')
+  logResources(users)
+}
+run()
 
 function logResources(resources) {
   for (const resource of resources) {

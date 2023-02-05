@@ -1,4 +1,3 @@
-//3:03
 async function getUserCode(url, apiKey) {
   const response = await fetch(url, {
     method: 'GET',
@@ -7,20 +6,23 @@ async function getUserCode(url, apiKey) {
       'X-API-Key': apiKey
     }
   })
-  // ?
+  return response.status
 }
 
 // Don't touch below this line
 
 const generatedKey = generateKey()
 
-const invalidId = 'invalid-id'
-const codeFirst = await getUserCode(`https://api.boot.dev/v1/courses_rest_api/learn-http/users/${invalidId}`, generatedKey)
-console.log(`id: ${invalidId}, status code: ${codeFirst}`)
-
-const validId = '0194fdc2-fa2f-4cc0-81d3-ff12045b73c8'
-const codeSecond = await getUserCode(`https://api.boot.dev/v1/courses_rest_api/learn-http/users/${validId}`, generatedKey)
-console.log(`id: ${validId}, status code: ${codeSecond}`)
+async function run() {
+  const invalidId = 'invalid-id'
+  const codeFirst = await getUserCode(`https://api.boot.dev/v1/courses_rest_api/learn-http/users/${invalidId}`, generatedKey)
+  console.log(`id: ${invalidId}, status code: ${codeFirst}`)
+  
+  const validId = '0194fdc2-fa2f-4cc0-81d3-ff12045b73c8'
+  const codeSecond = await getUserCode(`https://api.boot.dev/v1/courses_rest_api/learn-http/users/${validId}`, generatedKey)
+  console.log(`id: ${validId}, status code: ${codeSecond}`)
+}
+run()
 
 function generateKey() {
   const characters = 'ABCDEF0123456789'
